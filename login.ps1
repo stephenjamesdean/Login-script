@@ -1,4 +1,4 @@
-﻿#Get the IP address --------------------------------------------------------------------------------------
+#Get the IP address --------------------------------------------------------------------------------------
 $ipaddress = $(ipconfig | where {$_ -match 'IPv4.+\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' } | out-null; $Matches[1])
 
 #Get the Chassis Type ------------------------------------------------------------------------------------
@@ -66,9 +66,12 @@ $localusers = Get-LocalUser | where {$_.Enabled -eq $true} | Select Name
 
 
 
-#Send data to ITDB--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-$contentType = 'application/x-www-form-urlencoded' 
 
+
+
+
+#Send data to DATABASE--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+$contentType = 'application/x-www-form-urlencoded' 
 
 #Send Local users----------------------------------------------------------------------------
 foreach ($un in $localusers) {
@@ -83,8 +86,4 @@ foreach ($un in $localusers) {
 $site = "http://itdb/scripts/sql.php"
 $body = "un=" + $UserName + "&cn=" + $CompName + "&log=Logon" + "&ram=" + $ram + "&os=" + $os + "&cpu=" + $cpu + "&tvid=" + $TVID + "&platform=" + $ChassisType + "&IP=" + $ipaddress
 
-#write-host $site
-#write-host " "
-#write-host $body
- 
 $res = Invoke-WebRequest $site -Method POST -body $body -ContentType $contentType;
