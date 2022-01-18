@@ -1,5 +1,7 @@
 # Login-script
-Powershell script to capture all sorts of computer data and send to a database for logs and asset management
+Powershell script to capture all data from the local machine - and send to a database via php script for logs and asset management
+
+
 
 Data captured:
 
@@ -14,7 +16,6 @@ Data captured:
 -RAM
 
 -Computer name
-
 
 -Local Accounts
 
